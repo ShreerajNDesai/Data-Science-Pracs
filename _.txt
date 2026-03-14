@@ -1,0 +1,89 @@
+Currency converter
+@WebMethod(operationName = "toDollar")
+public double toDollar(@WebParam(name = "inr") double inr) {
+    return inr / 75;
+}
+
+<body>
+    <form>
+        INR: <input name="r"> <input type="submit">
+    </form>
+
+    <% 
+        String s = request.getParameter("r"); 
+        if(s != null && !s.isEmpty()) { 
+    %>
+        <h3> USD: <%= new my.client.CurrencyWS_Service().getCurrencyWSPort().toDollar(Double.parseDouble(s)) %> </h3>
+    <% } %>
+</body>
+
+
+Celsius to Fahrenheit
+@WebMethod(operationName = "cToF")
+public double cToF(@WebParam(name = "c") double c) {
+    return (c * 1.8) + 32;
+}
+
+<body>
+    <form>
+        Celsius: <input name="t"> <input type="submit" value="Convert">
+    </form>
+
+    <% 
+        String s = request.getParameter("t"); 
+        if(s != null && !s.isEmpty()) { 
+    %>
+        <h3> Fahrenheit: <%= new temp.client.TempWS_Service().getTempWSPort().cToF(Double.parseDouble(s)) %> </h3>
+    <% } %>
+</body>
+
+
+Factorial
+@WebMethod(operationName = "getFact")
+public int getFact(@WebParam(name = "n") int n) {
+    int f = 1;
+    for(int i = 1; i <= n; i++) {
+        f = f * i;
+    }
+    return f;
+}
+
+<body>
+    <form>
+        Number: <input name="n"> <input type="submit">
+    </form>
+
+    <% 
+        String s = request.getParameter("n"); 
+        if(s != null && !s.isEmpty()) { 
+            int num = Integer.parseInt(s);
+    %>
+        <h3> Factorial: <%= new c.FactWS_Service().getFactWSPort().getFact(num) %> </h3>
+    <% } %>
+</body>
+
+
+Prime
+@WebMethod(operationName = "checkPrime")
+public String checkPrime(@WebParam(name = "n") int n) {
+    if (n < 2) return "Not Prime";
+    for (int i = 2; i <= n / 2; i++) {
+        if (n % i == 0) return "Not Prime";
+    }
+    return "It is Prime";
+}
+
+<body>
+    <form>
+        Enter Number: <input name="n"> 
+        <input type="submit" value="Check">
+    </form>
+
+    <% 
+        String s = request.getParameter("n"); 
+        if(s != null && !s.isEmpty()) { 
+            int num = Integer.parseInt(s);
+    %>
+        <h3> Result: <%= new c.PrimeWS_Service().getPrimeWSPort().checkPrime(num) %> </h3>
+    <% } %>
+</body>
